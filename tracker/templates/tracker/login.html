@@ -1,0 +1,106 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Playlist Tracker</title>
+
+    <link rel="stylesheet" href="{% static 'tracker/css/login.css' %}?v=20261118">
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="brand">
+                <span class="brand-icon">▶</span>
+                <h2>Playlist Tracker</h2>
+            </div>
+
+            <h1>Welcome back!</h1>
+
+            <p class="subtitle">
+                Continue your learning journey.
+            </p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+
+                    <label for="id_username">Username</label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        id="id_username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="id_password">Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="id_password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+                <div class="forgot-link">
+                    <a href="{% url 'tracker:password_reset' %}">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Login
+                </button>
+
+                <input type="hidden" name="next" value="{{ next }}">
+
+            </form>
+
+            <p class="bottom-text">
+                Don't have an account?
+                <a href="{% url 'tracker:register' %}">
+                    Create account
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Playlist Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'tracker/css/dashboard.css' %}">
+</head>
+
+<body>
+    
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+
+        <h1>My YouTube Playlists</h1>
+
+        <div class="profile-container">
+
+            <!-- Round Profile Icon -->
+            <button type="button"
+                    class="profile-icon"
+                    id="profileButton">
+                {{ request.user.username|first|upper }}
+            </button>
+
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown" id="profileDropdown">
+                <p class="profile-username">
+                    Hi, {{ request.user.first_name|default:request.user.username }}!
+                </p>
+
+                <form method="POST" action="{% url 'tracker:logout' %}">
+                    {% csrf_token %}
+
+                    <button type="submit" class="logout-btn">
+                        Logout
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Add Playlist -->
+    <div class="add-playlist">
+
+        <h2>Add a YouTube Playlist</h2>
+
+        <form method="POST" action="{% url 'tracker:add_playlist' %}">
+            {% csrf_token %}
+
+            {{ playlist_form.playlist_url }}
+
+            <button type="submit">Add Playlist</button>
+
+            {% if playlist_form.playlist_url.errors %}
+                <p class="error">
+                    {{ playlist_form.playlist_url.errors }}
+                </p>
+            {% endif %}
+        </form>
+
+    </div>
+
+    <!-- Saved Playlists -->
+    <h2>My Saved Playlists</h2>
+
+    {% for playlist in playlists %}
+
+        <div class="playlist">
+
+            <h2>{{ playlist.title }}</h2>
+
+            <p>
+                Progress: {{ playlist.progress_percentage }}%
+            </p>
+
+            <div class="progress-container">
+                <div class="progress-bar"
+                    style="width: {{ playlist.progress_percentage }}%;">
+                </div>
+            </div>
+
+            <p>Total Videos: {{ playlist.total_videos }}</p>
+
+            <a href="{% url 'tracker:playlist_detail' playlist.id %}"
+            class="open-playlist-btn">
+                Open Playlist
+            </a>
+
+        </div>
+
+    {% empty %}
+
+        <p>No playlists added yet.</p>
+
+    {% endfor %}
+
+    <script src="{% static 'tracker/js/dashboard.js' %}"></script>
+</body>
+</html>

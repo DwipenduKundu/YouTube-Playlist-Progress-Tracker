@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Playlist Tracker</title>
+
+    <link rel="stylesheet" href="{% static 'tracker/css/register.css' %}?v=20261118">
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="brand">
+                <span class="brand-icon">▶</span>
+                <h2>Playlist Tracker</h2>
+            </div>
+
+            <h1>Create your account</h1>
+
+            <p class="subtitle">
+                Start tracking your learning progress.
+            </p>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {% for field in form %}
+
+                    <div class="form-group">
+
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {% for error in field.errors %}
+                            <small class="error">
+                                {{ error }}
+                            </small>
+                        {% endfor %}
+
+                    </div>
+
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                    <div class="error">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="submit-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p class="bottom-text">
+                Already have an account?
+                <a href="{% url 'tracker:login' %}">
+                    Login
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

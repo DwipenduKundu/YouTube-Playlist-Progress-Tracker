@@ -1,0 +1,610 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+
+/* Page Header */
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 25px;
+    margin: 0;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 20px;
+    background: #1e293b;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+}
+
+.back-link:hover {
+    background: #334155;
+    transform: translateX(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.back-arrow {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+
+/* Playlist Progress */
+
+.playlist-progress {
+    background: white;
+    padding: 22px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.progress-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.progress-info span {
+    font-weight: bold;
+    color: #16a34a;
+}
+
+.progress-container {
+    width: 100%;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #16a34a;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+.playlist-progress p {
+    margin-bottom: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* Main Layout */
+
+.playlist-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+
+/* Video Player */
+
+.player-section {
+    background: white;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+#youtubePlayer {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #0f172a;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#youtubePlayer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.player-section h2 {
+    font-size: 17px;
+    margin: 18px 0 0;
+}
+
+
+/* Current Video Progress */
+
+.video-progress-section {
+    margin-top: 20px;
+}
+
+.video-progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#videoProgressPercentage {
+    color: #16a34a;
+}
+
+.video-progress-container {
+    width: 100%;
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.video-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #16a34a;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+
+/* Video List */
+
+.video-list {
+    background: white;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.video-list h2 {
+    font-size: 19px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+
+/* Individual Video */
+
+.video-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 10px;
+    margin-bottom: 8px;
+    background: #f8fafc;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.video-item:hover {
+    background: #ecfdf5;
+    border-color: #16a34a;
+}
+
+.video-title {
+    flex: 1;
+    font-size: 14px;
+}
+
+
+/* Completed Video */
+
+.video-item.completed-video {
+    background: #f0fdf4;
+    border-color: #86efac;
+}
+
+.video-item.completed-video .video-title {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.completed {
+    color: #16a34a;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+/* YouTube Embedding Error */
+
+#videoErrorMessage {
+    width: 100%;
+    min-height: 300px;
+    padding: 35px 20px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#videoErrorMessage h3 {
+    color: #dc2626;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+#videoErrorMessage p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+
+/* YouTube Buttons */
+
+#openYouTubeLink,
+#markVideoCompletedManually {
+    display: inline-block;
+    padding: 11px 18px;
+    margin: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #16a34a;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#openYouTubeLink:hover,
+#markVideoCompletedManually:hover {
+    background: #15803d;
+}
+
+#markVideoCompletedManually {
+    min-width: 180px;
+}
+
+#markVideoCompletedManually:active {
+    transform: scale(0.97);
+}
+
+#markVideoCompletedManually:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 850px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .playlist-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .video-list {
+        max-height: 450px;
+    }
+
+    .page-header {
+        flex-wrap: wrap;
+    }
+
+    .page-header h1 {
+        font-size: 20px;
+    }
+
+}
+
+/* Red button when video is completed */
+#markVideoCompletedManually.unfinished-button {
+    background-color: #dc2626;
+    color: white;
+    border: 1px solid #dc2626;
+}
+
+#markVideoCompletedManually.unfinished-button:hover {
+    background-color: #b91c1c;
+}
+
+
+/* TABLET RESPONSIVE DESIGN */
+/* 768px - 1023px */
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+    body {
+        margin: 20px;
+    }
+
+    .page-header {
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .page-header h1 {
+        font-size: 25px;
+    }
+
+    .playlist-layout {
+        grid-template-columns: 1fr 300px;
+        gap: 20px;
+    }
+
+    .player-section {
+        min-width: 0;
+    }
+
+    .video-list {
+        min-width: 0;
+    }
+
+    .video-item {
+        padding: 12px;
+    }
+
+}
+
+
+/* MOBILE RESPONSIVE DESIGN */
+/* 481px - 767px */
+
+@media screen and (max-width: 767px) {
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 15px;
+    }
+
+    /* Header */
+
+    .page-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 22px;
+    }
+
+    .page-header h1 {
+        font-size: 23px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+
+    .back-link {
+        margin-bottom: 0;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    /* Playlist Progress */
+
+    .playlist-progress {
+        padding: 16px;
+        margin-bottom: 22px;
+    }
+
+    .progress-info h3 {
+        font-size: 17px;
+    }
+
+    .progress-info span {
+        font-size: 15px;
+    }
+
+    .progress-container {
+        width: 100%;
+    }
+
+    /* Main Layout */
+
+    .playlist-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        width: 100%;
+    }
+
+    .player-section {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* YouTube Player */
+
+    #youtubePlayer {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
+    }
+
+    #youtubePlayer iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    #videoErrorMessage {
+        width: 100%;
+        padding: 18px;
+    }
+
+    #videoErrorMessage h3 {
+        font-size: 18px;
+    }
+
+    #videoErrorMessage p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    #videoErrorMessage a,
+    #videoErrorMessage button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 12px;
+    }
+
+    /* Current Video */
+
+    #currentVideoTitle {
+        font-size: 19px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+        margin-top: 18px;
+    }
+
+    .video-progress-section {
+        margin-top: 18px;
+    }
+
+    .video-progress-info {
+        font-size: 13px;
+    }
+
+    /* Video List */
+
+    .video-list {
+        width: 100%;
+        min-width: 0;
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    .video-list h2 {
+        font-size: 20px;
+    }
+
+    .video-item {
+        width: 100%;
+        padding: 13px;
+        gap: 8px;
+    }
+
+    .video-title {
+        min-width: 0;
+        overflow-wrap: anywhere;
+        font-size: 13px;
+    }
+
+}
+
+
+/* SMALL MOBILE RESPONSIVE DESIGN */
+/* 480px and below */
+
+@media screen and (max-width: 480px) {
+
+    body {
+        margin: 12px;
+    }
+
+    /* Header */
+
+    .page-header {
+        gap: 12px;
+    }
+
+    .page-header h1 {
+        font-size: 20px;
+    }
+
+    .back-link {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    .back-arrow {
+        font-size: 20px;
+    }
+
+    /* Playlist Progress */
+
+    .playlist-progress {
+        padding: 13px;
+    }
+
+    .progress-info h3 {
+        font-size: 15px;
+    }
+
+    .progress-info span {
+        font-size: 14px;
+    }
+
+    #completedCount {
+        font-size: 13px;
+    }
+
+    /* Player */
+
+    #currentVideoTitle {
+        font-size: 17px;
+    }
+
+    #videoErrorMessage {
+        padding: 14px;
+    }
+
+    #videoErrorMessage h3 {
+        font-size: 16px;
+    }
+
+    /* Video List */
+
+    .video-list {
+        max-height: 450px;
+    }
+
+    .video-list h2 {
+        font-size: 18px;
+    }
+
+    .video-item {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    .video-title {
+        font-size: 12px;
+    }
+
+}

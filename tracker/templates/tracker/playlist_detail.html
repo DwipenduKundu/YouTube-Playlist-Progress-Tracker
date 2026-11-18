@@ -1,0 +1,176 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ playlist.title }}</title>
+
+    <link rel="stylesheet"
+      href="{% static 'tracker/css/playlist_detail.css' %}?v=20261118">
+</head>
+
+<body>
+
+    <div id="playlistPage"
+         data-completion-url="{% url 'tracker:mark_video_completed' %}"
+         data-progress-url="{% url 'tracker:update_video_progress' %}">
+
+        <form id="csrfForm" hidden>
+            {% csrf_token %}
+        </form>
+
+        <!-- Header -->
+        <header class="page-header">
+
+            <a href="{% url 'tracker:dashboard' %}" class="back-link">
+                <span class="back-arrow">←</span>
+                Dashboard
+            </a>
+
+            <h1>{{ playlist.title }}</h1>
+
+        </header>
+
+
+        <!-- Playlist Progress -->
+        <section class="playlist-progress">
+
+            <div class="progress-info">
+
+                <h3>Playlist Progress</h3>
+
+                <span id="progressPercentage">
+                    {{ playlist.progress_percentage }}%
+                </span>
+
+            </div>
+
+            <div class="progress-container">
+
+                <div class="progress-bar"
+                     id="progressBar"
+                     style="width: {{ playlist.progress_percentage }}%;">
+                </div>
+
+            </div>
+
+            <p id="completedCount">
+                {{ completed_count }} / {{ playlist.total_videos }} videos completed
+            </p>
+
+        </section>
+
+
+        <!-- Main Content -->
+        <main class="playlist-layout">
+
+
+            <!-- Video Player -->
+            <section class="player-section">
+
+                <div id="youtubePlayer"></div>
+
+
+                <!-- YouTube Embedding Error -->
+                <div id="videoErrorMessage" style="display: none;">
+
+                    <h3>Video cannot be played here</h3>
+
+                    <p>
+                        Embedding is disabled for this video.
+                        Please watch it directly on YouTube.
+                    </p>
+
+                    <a id="openYouTubeLink"
+                       href="#"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Open in YouTube
+                    </a>
+
+                    <button type="button"
+                            id="markVideoCompletedManually">
+                        Mark as Completed
+                    </button>
+
+                </div>
+
+
+                <h2 id="currentVideoTitle">
+                    Select a video to start watching
+                </h2>
+
+
+                <!-- Current Video Progress -->
+                <div class="video-progress-section">
+
+                    <div class="video-progress-info">
+
+                        <span>Current Video Progress</span>
+
+                        <span id="videoProgressPercentage">0%</span>
+
+                    </div>
+
+                    <div class="video-progress-container">
+
+                        <div class="video-progress-bar"
+                             id="videoProgressBar">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Playlist Video List -->
+            <aside class="video-list">
+
+                <h2>Playlist Videos</h2>
+
+                {% for video in videos %}
+
+                    <button type="button"
+                            class="video-item {% if video.is_completed %}completed-video{% endif %}"
+                            data-video-id="{{ video.youtube_video_id }}"
+                            data-video-title="{{ video.title|escape }}">
+
+                        <span>{{ video.position|add:1 }}.</span>
+
+                        <span class="video-title">
+                            {{ video.title }}
+                        </span>
+
+                        {% if video.is_completed %}
+                            <span class="completed">✓</span>
+                        {% endif %}
+
+                    </button>
+
+                {% empty %}
+
+                    <p>No videos found.</p>
+
+                {% endfor %}
+
+            </aside>
+
+        </main>
+
+    </div>
+
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- Playlist JavaScript -->
+    <script src="{% static 'tracker/js/playlist_detail.js' %}?v=20261113"></script>
+    
+</body>
+</html>
