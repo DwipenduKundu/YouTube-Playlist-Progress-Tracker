@@ -168,6 +168,4 @@ LOGOUT_REDIRECT_URL = 'tracker:login'
 
 
 
-DEFAULT_FROM_EMAIL = 'noreply@playlisttracker.com'
-
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
